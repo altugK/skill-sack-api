@@ -1,6 +1,7 @@
 # skill-sack-api
 api 1.0
-u can manage ur employees skills
+
+///manage your employees skills by drag and drop//
 
 https://skill-sack-api.herokuapp.com
 
