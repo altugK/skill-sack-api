@@ -24,8 +24,9 @@ public class SkillController {
         skillService.save(skill);
         return new GenericResponse("Skill is saved");
     }
+
     @GetMapping("/skills")
-    Page<SkillVM> getSkills(@PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 100) Pageable page) {
+    Page<SkillVM> getSkills(@PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 10) Pageable page) {
         return skillService.getSkills(page).map(SkillVM::new);
     }
 
@@ -40,4 +41,11 @@ public class SkillController {
         Skills skill = skillService.updateSkill(id, updatedSkill);
         return new SkillVM(skill);
     }
+
+    @GetMapping("/skills/{name}")
+    Page<SkillVM> getSkillsByName(@PathVariable(value = "name") String name,
+                                  @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 10) Pageable page) {
+        return skillService.getSkillsByName(name, page).map(SkillVM::new);
+    }
+
 }

@@ -12,7 +12,6 @@ public class DepartmentService {
 
     DepartmentRepository departmentRepository;
 
-
     public DepartmentService(DepartmentRepository departmentRepository) {
         this.departmentRepository = departmentRepository;
     }
@@ -39,4 +38,7 @@ public class DepartmentService {
         return departmentRepository.save(department);
     }
 
+    public Page<Departments> getDepartmentsByName(String name, Pageable page) {
+        return departmentRepository.findByNameContains(name, page);
+    }
 }

@@ -30,24 +30,21 @@ public class WsApplication {
     @Profile("dev")
     CommandLineRunner createInitialData(EmployeeService employeeService, DepartmentService departmentService, SkillService skillService) {
         return (args) -> {
-            try {
-                employeeService.getByName("employee1");
-            } catch (Exception e) {
-                for (int i = 1; i <= 25; i++) {
-                    DepartmentSubmitVM departmentSubmitVM = new DepartmentSubmitVM();
-                    departmentSubmitVM.setName("department " + i);
-                    departmentService.save(departmentSubmitVM);
 
-                    SkillSubmitVM skillSubmitVM = new SkillSubmitVM();
-                    skillSubmitVM.setName("skill " + i);
-                    skillService.save(skillSubmitVM);
+            for (int i = 1; i <= 25; i++) {
+                DepartmentSubmitVM departmentSubmitVM = new DepartmentSubmitVM();
+                departmentSubmitVM.setName("department " + i);
+                departmentService.save(departmentSubmitVM);
 
-                    EmployeeSubmitVM employee = new EmployeeSubmitVM();
-                    employee.setName("employee " + i);
-                    employee.setDepartment(Long.valueOf(i));
-                    employee.setSkill(Long.valueOf(i));
-                    employeeService.save(employee);
-                }
+                SkillSubmitVM skillSubmitVM = new SkillSubmitVM();
+                skillSubmitVM.setName("skill " + i);
+                skillService.save(skillSubmitVM);
+
+                EmployeeSubmitVM employee = new EmployeeSubmitVM();
+                employee.setName("employee " + i);
+                employee.setDepartment(Long.valueOf(i));
+                employee.setSkill(Long.valueOf(i));
+                employeeService.save(employee);
             }
         };
     }

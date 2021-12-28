@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class Departments {
 
     @Column(length = 50)
     @NotNull
+    @Pattern(regexp = "[^A-Za-z0-9]+")
     private String name;
 
     @OneToMany(mappedBy = "department", cascade = {CascadeType.PERSIST})

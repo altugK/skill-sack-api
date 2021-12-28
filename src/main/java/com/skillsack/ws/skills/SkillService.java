@@ -38,4 +38,7 @@ public class SkillService {
         return skillRepository.save(skills);
     }
 
+    public Page<Skills> getSkillsByName(String name, Pageable page) {
+        return skillRepository.findByNameContains(name, page);
+    }
 }

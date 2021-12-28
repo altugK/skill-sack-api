@@ -26,7 +26,7 @@ public class DepartmentController {
     }
 
     @GetMapping("/departments")
-    Page<DepartmentVM> getDepartments(@PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 100) Pageable page) {
+    Page<DepartmentVM> getDepartments(@PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 10) Pageable page) {
         return departmentService.getDepartments(page).map(DepartmentVM::new);
     }
 
@@ -41,5 +41,12 @@ public class DepartmentController {
         Departments department = departmentService.updateDepartment(id, updatedDepartment);
         return new DepartmentVM(department);
     }
+
+    @GetMapping("/departments/{name}")
+    Page<DepartmentVM> getDepartmentsByName(@PathVariable(value = "name") String name,
+                                            @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 10) Pageable page) {
+        return departmentService.getDepartmentsByName(name, page).map(DepartmentVM::new);
+    }
+
 
 }

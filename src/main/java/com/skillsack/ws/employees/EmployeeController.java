@@ -26,7 +26,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees")
-    Page<EmployeeVM> getEmployees(@PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 100) Pageable page) {
+    Page<EmployeeVM> getEmployees(@PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 10) Pageable page) {
         return employeeService.getEmployees(page).map(EmployeeVM::new);
     }
 
@@ -37,9 +37,21 @@ public class EmployeeController {
     }
 
     @PutMapping("/employee/{id}")
-    EmployeeVM updateEmployee(@PathVariable(value = "id") long id, @RequestBody EmployeeSubmitVM updatedEmployee) {
+    EmployeeVM updateEmployee(@Valid @PathVariable(value = "id") long id, @RequestBody EmployeeSubmitVM updatedEmployee) {
         Employees employee = employeeService.updateEmployee(id, updatedEmployee);
         return new EmployeeVM(employee);
+    }
+
+    @GetMapping("/employees/{name}")
+    Page<EmployeeVM> getEmployeesByName(@PathVariable(value = "name") String name,
+                                        @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 10) Pageable page) {
+        return employeeService.getEmployeesByName(name, page).map(EmployeeVM::new);
+    }
+
+    @DeleteMapping("/employee/{employee}/{skill}")
+    GenericResponse deleteEmployeeSkill(@PathVariable(value = "employee") long employeeId, @PathVariable(value = "skill") long skillId) {
+        employeeService.deleteEmployeeSkill(employeeId, skillId);
+        return new GenericResponse("Skill is deleted");
     }
 
 }

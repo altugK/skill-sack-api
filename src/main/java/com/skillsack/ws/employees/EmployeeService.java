@@ -40,14 +40,6 @@ public class EmployeeService {
         return employeeRepository.findAll(page);
     }
 
-    public Employees getByName(String name) {
-        Employees inDB = employeeRepository.findByName(name);
-        if (inDB == null) {
-            throw new NotFoundException();
-        }
-        return inDB;
-    }
-
     public void deleteEmployee(long id) {
         employeeRepository.deleteById(id);
     }
@@ -95,4 +87,19 @@ public class EmployeeService {
         }
     }
 
+    public Page<Employees> getEmployeesByName(String name, Pageable page) {
+        return employeeRepository.findByNameContains(name, page);
+    }
+
+    public void deleteEmployeeSkill(long employeeId, long skillId) {
+        Optional<Employees> employee = employeeRepository.findById(employeeId);
+        if (employee.isPresent()) {
+            List<Skills> skills = employee.get().getSkills();
+            if (skills != null) {
+                skills.removeIf(skill -> skill.getId() == skillId);
+                employee.get().setSkills(skills);
+            }
+        }
+        employeeRepository.save(employee.get());
+    }
 }
