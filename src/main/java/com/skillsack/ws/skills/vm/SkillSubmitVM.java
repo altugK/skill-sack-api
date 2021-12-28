@@ -11,6 +11,6 @@ public class SkillSubmitVM {
 
     @Size(min = 3, max = 50)
     @NotNull
-    @Pattern(regexp = "[^A-Za-z0-9]+", message = "Skill name must not contain special characters")
+    @Pattern(regexp = "[a-zA-Z0-9]+", message = "Skill name must not contain special characters")
     private String name;
 }
