@@ -12,7 +12,7 @@ public class EmployeeSubmitVM {
 
     @Size(min = 3, max = 50)
     @NotNull
-    @Pattern(regexp = "[a-zA-Z]+", message = "Employee name must not contain special characters")
+    @Pattern(regexp = "[a-zA-Z\\\\ ]+", message = "Skill name must not contain special characters")
     private String name;
 
     @Nullable
